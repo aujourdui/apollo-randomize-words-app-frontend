@@ -14,7 +14,7 @@ const App: FC = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf",
+        "https://wordsapiv1.p.rapidapi.com/words",
         {
           headers: {
             "X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",

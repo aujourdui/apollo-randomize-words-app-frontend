@@ -13,17 +13,20 @@ const App: FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "https://wordsapiv1.p.rapidapi.com/words",
-        {
-          headers: {
-            "X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
-            "X-RapidAPI-Key":
-              "e7bf698955msh0a7c2b723de2e5ep12bdd6jsnff909e419223",
-          },
-        }
-      );
+      const response = await axios.post("http://localhost:4000", {
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: "dummy-token",
+        },
+        query: `query{
+            words {
+              word
+              type
+            }
+          }`,
+      });
       const data = await response.data;
+      console.log(data);
       setWords(data.word);
     } catch (error) {
       console.log(error);
@@ -50,18 +53,3 @@ const App: FC = () => {
 };
 
 export default App;
-
-// useEffect(() => {
-//   axios
-//     .get("https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf", {
-//       headers: {
-//         "X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
-//         "X-RapidAPI-Key":
-//           "e7bf698955msh0a7c2b723de2e5ep12bdd6jsnff909e419223",
-//       },
-//     })
-//     .then((res) => console.log(res))
-//     .catch((err) => {
-//       console.error(new Error(err));
-//     });
-// });

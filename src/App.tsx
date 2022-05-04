@@ -2,6 +2,15 @@ import React, { useState, useEffect, FC } from "react";
 import axios from "axios";
 import "./App.css";
 
+import {
+  Box,
+  Grid,
+  Text,
+  Button,
+  ListItem,
+  UnorderedList,
+} from "@chakra-ui/react";
+
 const App: FC = () => {
   const [words, setWords] = useState<any>();
   const [refetch, setRefetch] = useState<any>();
@@ -44,23 +53,31 @@ const App: FC = () => {
 
   return (
     <div className="app">
-      <h1>Idea Booster</h1>
+      <Text fontSize="5xl" fontWeight="extrabold">
+        Idea Booster
+      </Text>
       {
         words && (
           <>
-            <div className="word__container">
-              <li className="word__list--first">{words[randomNum()].word}</li>
-              <li className="word__list--middle">X</li>
-              <li className="word__list--second">{words[randomNum()].word}</li>
-            </div>
-            <div className="refetch-button__container">
-              <button onClick={handleRefetch}>Refetch</button>
-            </div>
-            <div className="refetch-button__container">
-              <button onClick={handleRefetch}>
+            <UnorderedList>
+              <Grid className="word__container">
+                <ListItem className="word__list--first">
+                  {words[randomNum()].word}
+                </ListItem>
+                <ListItem className="word__list--middle">X</ListItem>
+                <ListItem className="word__list--second">
+                  {words[randomNum()].word}
+                </ListItem>
+              </Grid>
+            </UnorderedList>
+            <Box className="refetch-button__container">
+              <Button onClick={handleRefetch}>Refetch</Button>
+            </Box>
+            <Box className="refetch-button__container">
+              <Button onClick={handleRefetch}>
                 Create a new story with above words
-              </button>
-            </div>
+              </Button>
+            </Box>
           </>
         )
         // words.map((word, index) => (

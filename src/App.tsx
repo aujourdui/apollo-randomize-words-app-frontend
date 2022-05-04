@@ -2,12 +2,6 @@ import React, { useState, useEffect, FC } from "react";
 import axios from "axios";
 import "./App.css";
 
-// interface IWords {
-//   typeOf: any;
-//   map: any;
-//   word: any;
-// }
-
 const App: FC = () => {
   const [words, setWords] = useState<any>();
 
@@ -16,7 +10,6 @@ const App: FC = () => {
       const response = await axios.post("http://localhost:4000", {
         headers: {
           "Content-Type": "application/json",
-          // Authorization: "dummy-token",
         },
         query: `query{
             words {
@@ -25,9 +18,9 @@ const App: FC = () => {
             }
           }`,
       });
-      const data = await response.data;
-      console.log(data);
-      setWords(data.word);
+      const data = await response.data.data.words;
+      // console.log(data);
+      setWords(data);
     } catch (error) {
       console.log(error);
     }
@@ -40,14 +33,16 @@ const App: FC = () => {
   useEffect(() => {
     console.log(words);
   }, [words]);
+
   return (
     <div className="App">
       <h1>Hello</h1>
-      {words}
-      {/* <p>{words.word}</p> */}
-      {/* {words.map((word) => (
-        <li>{word.typeOf}</li>
-      ))} */}
+      {words.map((word) => (
+        <>
+          <li>{word.word}</li>
+          <li>{word.type}</li>
+        </>
+      ))}
     </div>
   );
 };

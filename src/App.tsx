@@ -44,7 +44,7 @@ const App: FC = () => {
 
   return (
     <div className="app">
-      <h1>Imagination Booster</h1>
+      <h1>Idea Booster</h1>
       {
         words && (
           <>
@@ -55,6 +55,11 @@ const App: FC = () => {
             </div>
             <div className="refetch-button__container">
               <button onClick={handleRefetch}>Refetch</button>
+            </div>
+            <div className="refetch-button__container">
+              <button onClick={handleRefetch}>
+                Create a new story with above words
+              </button>
             </div>
           </>
         )

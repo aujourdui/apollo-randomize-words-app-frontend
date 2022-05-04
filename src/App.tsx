@@ -2,29 +2,25 @@ import React, { useState, useEffect, FC } from "react";
 import axios from "axios";
 import "./App.css";
 
-// interface IWords {
-//   typeOf: any;
-//   map: any;
-//   word: any;
-// }
-
 const App: FC = () => {
   const [words, setWords] = useState<any>();
+  const [refetch, setRefetch] = useState<any>();
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "https://wordsapiv1.p.rapidapi.com/words",
-        {
-          headers: {
-            "X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
-            "X-RapidAPI-Key":
-              "e7bf698955msh0a7c2b723de2e5ep12bdd6jsnff909e419223",
-          },
-        }
-      );
-      const data = await response.data;
-      setWords(data.word);
+      const response = await axios.post("http://localhost:4000", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        query: `query{
+            words {
+              word
+              type
+            }
+          }`,
+      });
+      const data = await response.data.data.words;
+      setWords(data);
     } catch (error) {
       console.log(error);
     }
@@ -32,36 +28,45 @@ const App: FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [refetch]);
 
-  useEffect(() => {
-    console.log(words);
-  }, [words]);
+  const handleRefetch = () => {
+    setRefetch(!refetch);
+  };
+
+  // useEffect(() => {
+  //   console.log(words);
+  // }, [words]);
+
+  const randomNum = () => {
+    return Math.floor(Math.random() * 12);
+  };
+
   return (
-    <div className="App">
-      <h1>Hello</h1>
-      {words}
-      {/* <p>{words.word}</p> */}
-      {/* {words.map((word) => (
-        <li>{word.typeOf}</li>
-      ))} */}
+    <div className="app">
+      <h1>Imagination Booster</h1>
+      {
+        words && (
+          <>
+            <div className="word__container">
+              <li className="word__list--first">{words[randomNum()].word}</li>
+              <li className="word__list--middle">X</li>
+              <li className="word__list--second">{words[randomNum()].word}</li>
+            </div>
+            <div className="refetch-button__container">
+              <button onClick={handleRefetch}>Refetch</button>
+            </div>
+          </>
+        )
+        // words.map((word, index) => (
+        //   <div key={index} className="word__container">
+        //     <li className="word__list--first">{word.word}</li>
+        //     <li className="word__list--second">{word.type}</li>
+        //   </div>
+        // ))
+      }
     </div>
   );
 };
 
 export default App;
-
-// useEffect(() => {
-//   axios
-//     .get("https://wordsapiv1.p.rapidapi.com/words/hatchback/typeOf", {
-//       headers: {
-//         "X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com",
-//         "X-RapidAPI-Key":
-//           "e7bf698955msh0a7c2b723de2e5ep12bdd6jsnff909e419223",
-//       },
-//     })
-//     .then((res) => console.log(res))
-//     .catch((err) => {
-//       console.error(new Error(err));
-//     });
-// });

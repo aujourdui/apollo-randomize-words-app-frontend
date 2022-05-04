@@ -4,6 +4,7 @@ import "./App.css";
 
 const App: FC = () => {
   const [words, setWords] = useState<any>();
+  const [refetch, setRefetch] = useState<any>();
 
   const fetchData = async () => {
     try {
@@ -27,7 +28,11 @@ const App: FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [refetch]);
+
+  const handleRefetch = () => {
+    setRefetch(!refetch);
+  };
 
   // useEffect(() => {
   //   console.log(words);
@@ -42,11 +47,16 @@ const App: FC = () => {
       <h1>Imagination Booster</h1>
       {
         words && (
-          <div className="word__container">
-            <li className="word__list--first">{words[randomNum()].word}</li>
-            <li className="word__list--middle">X</li>
-            <li className="word__list--second">{words[randomNum()].word}</li>
-          </div>
+          <>
+            <div className="word__container">
+              <li className="word__list--first">{words[randomNum()].word}</li>
+              <li className="word__list--middle">X</li>
+              <li className="word__list--second">{words[randomNum()].word}</li>
+            </div>
+            <div className="refetch-button__container">
+              <button onClick={handleRefetch}>Refetch</button>
+            </div>
+          </>
         )
         // words.map((word, index) => (
         //   <div key={index} className="word__container">

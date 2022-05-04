@@ -30,19 +30,20 @@ const App: FC = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(words);
-  }, [words]);
+  // useEffect(() => {
+  //   console.log(words);
+  // }, [words]);
 
   return (
-    <div className="App">
-      <h1>Hello</h1>
-      {words.map((word) => (
-        <>
-          <li>{word.word}</li>
-          <li>{word.type}</li>
-        </>
-      ))}
+    <div className="app">
+      <h1>Randomized words app</h1>
+      {words &&
+        words.map((word, index) => (
+          <div key={index} className="word__container">
+            <li className="word__list--first">{word.word}</li>
+            <li className="word__list--second">{word.type}</li>
+          </div>
+        ))}
     </div>
   );
 };

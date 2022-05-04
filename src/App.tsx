@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from "react";
 import axios from "axios";
 import "./App.css";
 
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, NetworkStatus } from "@apollo/client";
 
 import {
   Box,
@@ -22,15 +22,23 @@ const GET_WORDS = gql`
   }
 `;
 
-const App: FC = () => {
-  const { loading, error, data } = useQuery(GET_WORDS);
+const App: any = () => {
+  const { loading, error, data, refetch, networkStatus } = useQuery(GET_WORDS, {
+    notifyOnNetworkStatusChange: true,
+  });
 
   if (!data) return null;
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+  if (networkStatus === NetworkStatus.refetch) return "Refetching!";
+  if (loading) return null;
 
   const randomNum = () => {
     return Math.floor(Math.random() * 12);
+  };
+
+  const handleRefetch = () => {
+    refetch();
   };
 
   return (
@@ -51,7 +59,7 @@ const App: FC = () => {
           </Grid>
         </UnorderedList>
         <Box className="refetch-button__container">
-          <Button onClick={handleRefetch}>Refetch</Button>
+          <Button onClick={() => refetch()}>Refetch</Button>
         </Box>
         <Box className="refetch-button__container">
           <Button onClick={handleRefetch}>

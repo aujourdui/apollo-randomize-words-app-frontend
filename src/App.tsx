@@ -19,7 +19,6 @@ const App: FC = () => {
           }`,
       });
       const data = await response.data.data.words;
-      // console.log(data);
       setWords(data);
     } catch (error) {
       console.log(error);
@@ -34,16 +33,28 @@ const App: FC = () => {
   //   console.log(words);
   // }, [words]);
 
+  const randomNum = () => {
+    return Math.floor(Math.random() * 12);
+  };
+
   return (
     <div className="app">
-      <h1>Randomized words app</h1>
-      {words &&
-        words.map((word, index) => (
-          <div key={index} className="word__container">
-            <li className="word__list--first">{word.word}</li>
-            <li className="word__list--second">{word.type}</li>
+      <h1>Imagination Booster</h1>
+      {
+        words && (
+          <div className="word__container">
+            <li className="word__list--first">{words[randomNum()].word}</li>
+            <li className="word__list--middle">X</li>
+            <li className="word__list--second">{words[randomNum()].word}</li>
           </div>
-        ))}
+        )
+        // words.map((word, index) => (
+        //   <div key={index} className="word__container">
+        //     <li className="word__list--first">{word.word}</li>
+        //     <li className="word__list--second">{word.type}</li>
+        //   </div>
+        // ))
+      }
     </div>
   );
 };

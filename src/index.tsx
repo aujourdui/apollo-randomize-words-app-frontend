@@ -8,7 +8,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "https://randomized-words-app-backend.herokuapp.com/",
+  uri: "https://idea-booster-backend.herokuapp.com/",
   cache: new InMemoryCache(),
 });
 

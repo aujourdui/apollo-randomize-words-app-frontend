@@ -12,6 +12,9 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 
+import { IconButton, useColorMode } from "@chakra-ui/react";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+
 const GET_WORDS = gql`
   query getWords {
     words {
@@ -22,6 +25,7 @@ const GET_WORDS = gql`
 `;
 
 const App: any = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const { loading, error, data, refetch, networkStatus } = useQuery(GET_WORDS, {
     notifyOnNetworkStatusChange: true,
   });
@@ -49,6 +53,13 @@ const App: any = () => {
       <Text fontSize="5xl" fontWeight="extrabold">
         Idea Booster
       </Text>
+      <IconButton
+        _focus={{ focus: "none" }}
+        mb={10}
+        aria-label="DarkMode Switch"
+        icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+        onClick={toggleColorMode}
+      />
       <>
         <UnorderedList>
           <Grid className="word__container">

@@ -1,10 +1,10 @@
-import "./App.css";
+import styles from "./App.module.scss";
 
 import IdeaBooster from "pages/IdeaBooster";
 
 const App: any = () => {
   return (
-    <div className="app">
+    <div className={styles.app}>
       <IdeaBooster />
     </div>
   );

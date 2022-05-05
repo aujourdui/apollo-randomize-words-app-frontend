@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom";
-// import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./index.scss";
 import App from "App";
 import reportWebVitals from "reportWebVitals";
 
@@ -13,9 +12,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// const root = ReactDOM.createRoot(
-//   document.getElementById("root") as HTMLElement
-// );
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ChakraProvider>

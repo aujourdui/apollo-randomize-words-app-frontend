@@ -1,25 +1,12 @@
-import { useQuery, gql, NetworkStatus } from "@apollo/client";
+import { useQuery, NetworkStatus } from "@apollo/client";
 
-import {
-  Box,
-  Grid,
-  Text,
-  Button,
-  ListItem,
-  UnorderedList,
-  Textarea,
-} from "@chakra-ui/react";
+import { GET_WORDS } from "apollo/query";
 
-import DarkMode from "../components/DarkMode";
-
-const GET_WORDS = gql`
-  query getWords {
-    words {
-      word
-      type
-    }
-  }
-`;
+import DarkMode from "components/features/DarkMode";
+import Title from "components/common/Title";
+import WordList from "components/ideaBooster/WordList";
+import Refetch from "components/ideaBooster/Refetch";
+import CreateStory from "components/ideaBooster/CreateStory";
 
 const IdeaBooster: any = () => {
   const { loading, error, data, refetch, networkStatus } = useQuery(GET_WORDS, {
@@ -35,42 +22,20 @@ const IdeaBooster: any = () => {
   const randomNum = () => {
     return Math.floor(Math.random() * 12);
   };
-
   const handleRefetch = () => {
     refetch();
   };
 
   const firstWord = data.words[randomNum()].word;
-
   const secondWord = data.words[randomNum()].word;
+
   return (
     <>
-      <Text fontSize="5xl" fontWeight="extrabold">
-        Idea Booster
-      </Text>
+      <Title>IdeaBooster</Title>
       <DarkMode />
-      <>
-        <UnorderedList>
-          <Grid className="word__container">
-            <ListItem className="word__list--first">{firstWord}</ListItem>
-            <ListItem className="word__list--middle">X</ListItem>
-            <ListItem className="word__list--second">{secondWord}</ListItem>
-          </Grid>
-        </UnorderedList>
-        <Box className="refetch-button__container">
-          <Button onClick={handleRefetch}>Refetch</Button>
-        </Box>
-        <Box>
-          <Text width="90%" fontSize="xl">
-            Create a new story
-          </Text>
-          <Textarea
-            width="300px"
-            size="lg"
-            defaultValue={[firstWord, secondWord]}
-          ></Textarea>
-        </Box>
-      </>
+      <WordList firstWord={firstWord} secondWord={secondWord} />
+      <Refetch handleRefetch={handleRefetch} />
+      <CreateStory firstWord={firstWord} secondWord={secondWord} />
     </>
   );
 };

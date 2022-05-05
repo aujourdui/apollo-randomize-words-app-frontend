@@ -1,6 +1,6 @@
 import "./App.css";
 
-import IdeaBooster from "./pages/IdeaBooster";
+import IdeaBooster from "pages/IdeaBooster";
 
 const App: any = () => {
   return (

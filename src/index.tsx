@@ -6,14 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000",
+  uri: "https://randomized-words-app-backend.herokuapp.com/",
   cache: new InMemoryCache(),
 });
 

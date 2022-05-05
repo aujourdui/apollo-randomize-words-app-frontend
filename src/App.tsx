@@ -1,4 +1,3 @@
-import React, { useState, useEffect, FC } from "react";
 import "./App.css";
 
 import { useQuery, gql, NetworkStatus } from "@apollo/client";

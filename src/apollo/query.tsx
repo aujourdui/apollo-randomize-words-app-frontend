@@ -8,3 +8,11 @@ export const GET_WORDS = gql`
     }
   }
 `;
+
+export const ADD_SENTENCE = gql`
+  mutation AddSentence {
+    sentences {
+      sentence
+    }
+  }
+`;

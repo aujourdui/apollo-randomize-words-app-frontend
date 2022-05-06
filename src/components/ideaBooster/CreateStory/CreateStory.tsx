@@ -3,24 +3,29 @@ import { ADD_SENTENCE } from "apollo/query";
 
 import {
   Box,
-  Text,
   Textarea,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
-  Center,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 
 const CreateStory: any = ({ firstWord, secondWord }) => {
   const [addSentence, { data, loading, error }] = useMutation(ADD_SENTENCE);
 
+  console.log(data);
+
   if (loading) return "Submitting...";
   if (error) return `Submission error! ${error.message}`;
   return (
     <Box>
-      <FormControl>
+      <FormControl
+        onSubmit={(e) => {
+          e.preventDefault();
+          addSentence({ variables: { text: Textarea } });
+        }}
+      >
         <Flex direction="column" alignItems="center">
           <FormLabel width="280px">Create a new story</FormLabel>
           <Textarea
@@ -29,8 +34,12 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
             defaultValue={[firstWord, secondWord]}
           ></Textarea>
         </Flex>
-        <FormHelperText>Boost your idea to create a story</FormHelperText>
+        <FormHelperText my="2">
+          Boost your idea to create a story
+        </FormHelperText>
+        <Button type="submit">Add a story</Button>
       </FormControl>
+      {data}
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { useQuery, useMutation, NetworkStatus } from "@apollo/client";
+import { useQuery, NetworkStatus } from "@apollo/client";
 
 import { GET_WORDS } from "apollo/query";
 

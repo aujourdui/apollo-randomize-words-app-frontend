@@ -8,7 +8,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "https://idea-booster-backend.herokuapp.com/",
+  // uri: process.env.REACT_APP_SERVER_URL,
+  uri: process.env.REACT_APP_SERVER_URL_LOCAL,
   cache: new InMemoryCache(),
 });
 

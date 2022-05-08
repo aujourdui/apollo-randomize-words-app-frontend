@@ -21,7 +21,7 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
   if (error) return `Submission error! ${error.message}`;
   return (
     <Box>
-      <FormControl
+      <form
         onSubmit={(e) => {
           e.preventDefault();
           // addSentence({ variables: { text: Textarea } });
@@ -30,23 +30,27 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
           window.location.reload();
         }}
       >
-        <Flex direction="column" alignItems="center">
-          <FormLabel width="280px">Create a new story</FormLabel>
-          <input
-            type="text"
-            ref={(node) => {
-              input = node;
-            }}
-          />
-          {/* <Textarea
+        <FormControl>
+          <Flex direction="column" alignItems="center">
+            <FormLabel width="280px">Create a new story</FormLabel>
+            <input
+              type="text"
+              ref={(node) => {
+                input = node;
+              }}
+            />
+            {/* <Textarea
             width="300px"
             size="lg"
             defaultValue={[firstWord, secondWord]}
           ></Textarea> */}
-        </Flex>
-        <FormHelperText my="2">Boost your idea by these stories</FormHelperText>
-        <Button type="submit">Add to list</Button>
-      </FormControl>
+          </Flex>
+          <FormHelperText my="2">
+            Boost your idea by these stories
+          </FormHelperText>
+          <Button type="submit">Add to list</Button>
+        </FormControl>
+      </form>
     </Box>
   );
 };

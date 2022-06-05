@@ -13,12 +13,13 @@ import {
 } from "@chakra-ui/react";
 
 interface Sentence {
+  id: string;
   type: string;
   sentence: string;
 }
 
 const CreateStory: any = ({ firstWord, secondWord }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(`${firstWord} ${secondWord}`);
   const [addSentence] = useMutation(ADD_SENTENCE);
   const { data, loading, error } = useQuery(GET_SENTENCES);
 
@@ -31,7 +32,6 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
   if (loading) return "Submitting...";
   if (error) return `Submission error! ${error.message}`;
 
-  console.log(data.sentences);
   return (
     <Box>
       {data.sentences.map((sentence: Sentence, index: number) => (
@@ -42,6 +42,7 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
           e.preventDefault();
           addSentence({ variables: { sentence: value } });
           setValue("");
+          window.location.reload();
         }}
       >
         <FormControl>

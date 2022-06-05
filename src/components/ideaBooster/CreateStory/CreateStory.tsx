@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_SENTENCE, GET_SENTENCES } from "apollo/query";
 
@@ -12,9 +13,15 @@ import {
 } from "@chakra-ui/react";
 
 const CreateStory: any = ({ firstWord, secondWord }) => {
-  let input;
+  // let input;
+  const [value, setValue] = useState("");
   const [addSentence] = useMutation(ADD_SENTENCE);
   const { data, loading, error } = useQuery(GET_SENTENCES);
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setValue(inputValue);
+  };
 
   if (!data) return null;
   if (loading) return "Submitting...";
@@ -24,26 +31,21 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          // addSentence({ variables: { text: Textarea } });
-          addSentence({ variables: { sentence: input.value } });
-          input.value = "";
-          window.location.reload();
+          addSentence({ variables: { sentence: value } });
+          setValue("");
         }}
       >
         <FormControl>
           <Flex direction="column" alignItems="center">
             <FormLabel width="280px">Create a new story</FormLabel>
-            <input
-              type="text"
-              ref={(node) => {
-                input = node;
-              }}
-            />
-            {/* <Textarea
-            width="300px"
-            size="lg"
-            defaultValue={[firstWord, secondWord]}
-          ></Textarea> */}
+            <p>{value}</p>
+            <Textarea
+              width="300px"
+              value={value}
+              onChange={handleInputChange}
+              size="lg"
+              defaultValue={[firstWord, secondWord]}
+            ></Textarea>
           </Flex>
           <FormHelperText my="2">
             Boost your idea by these stories

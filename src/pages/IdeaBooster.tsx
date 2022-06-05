@@ -31,7 +31,7 @@ const IdeaBooster: any = () => {
 
   return (
     <>
-      <Title>IdeaBooster</Title>
+      <Title>Idea Booster</Title>
       <DarkMode />
       <WordList firstWord={firstWord} secondWord={secondWord} />
       <Refetch handleRefetch={handleRefetch} />

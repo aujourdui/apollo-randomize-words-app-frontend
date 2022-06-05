@@ -8,3 +8,17 @@ export const GET_WORDS = gql`
     }
   }
 `;
+
+export const GET_SENTENCES = gql`
+  query getSentences {
+    sentences {
+      sentence
+    }
+  }
+`;
+
+export const ADD_SENTENCE = gql`
+  mutation AddSentence($sentence: String!) {
+    addSentence(sentence: $sentence)
+  }
+`;

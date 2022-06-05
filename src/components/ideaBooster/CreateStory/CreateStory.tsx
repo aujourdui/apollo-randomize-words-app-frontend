@@ -12,13 +12,17 @@ import {
   Button,
 } from "@chakra-ui/react";
 
+interface Sentence {
+  type: string;
+  sentence: string;
+}
+
 const CreateStory: any = ({ firstWord, secondWord }) => {
-  // let input;
   const [value, setValue] = useState("");
   const [addSentence] = useMutation(ADD_SENTENCE);
   const { data, loading, error } = useQuery(GET_SENTENCES);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: { target: { value: string } }) => {
     const inputValue = e.target.value;
     setValue(inputValue);
   };
@@ -26,8 +30,13 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
   if (!data) return null;
   if (loading) return "Submitting...";
   if (error) return `Submission error! ${error.message}`;
+
+  console.log(data.sentences);
   return (
     <Box>
+      {data.sentences.map((sentence: Sentence, index: number) => (
+        <li key={index}>{sentence.sentence}</li>
+      ))}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -38,13 +47,11 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
         <FormControl>
           <Flex direction="column" alignItems="center">
             <FormLabel width="280px">Create a new story</FormLabel>
-            <p>{value}</p>
             <Textarea
               width="300px"
               value={value}
               onChange={handleInputChange}
               size="lg"
-              defaultValue={[firstWord, secondWord]}
             ></Textarea>
           </Flex>
           <FormHelperText my="2">

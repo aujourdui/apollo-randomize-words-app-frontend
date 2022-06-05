@@ -22,12 +22,3 @@ export const ADD_SENTENCE = gql`
     addSentence(sentence: $sentence)
   }
 `;
-
-// export const GET_SENTENCES = gql`
-//   query getSentences {
-//     sentences {
-//       id
-//       sentence
-//     }
-//   }
-// `;

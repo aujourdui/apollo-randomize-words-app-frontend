@@ -26,8 +26,11 @@ const IdeaBooster: any = () => {
     refetch();
   };
 
-  const firstWord = data.words[randomNum()].word;
-  const secondWord = data.words[randomNum()].word;
+  const firstWord = data.words[3].word;
+  const secondWord = data.words[4].word;
+
+  console.log(data.words);
+  console.log(secondWord);
 
   return (
     <>

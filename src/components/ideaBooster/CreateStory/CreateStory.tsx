@@ -19,30 +19,48 @@ interface Sentence {
 }
 
 const CreateStory: any = ({ firstWord, secondWord }) => {
-  const [value, setValue] = useState(`${firstWord} ${secondWord}`);
+  const [story, setStory] = useState<undefined | string>(
+    `${firstWord} ${secondWord}`
+  );
   const [addSentence] = useMutation(ADD_SENTENCE);
   const { data, loading, error } = useQuery(GET_SENTENCES);
-
-  const handleInputChange = (e: { target: { value: string } }) => {
-    const inputValue = e.target.value;
-    setValue(inputValue);
-  };
 
   if (!data) return null;
   if (loading) return "Submitting...";
   if (error) return `Submission error! ${error.message}`;
 
+  let dataArr = [];
+
+  // const createDataArr = () => {
+  //   data.sentences.map((sentence: any) => dataArr.push(sentence.sentence));
+  //   return dataArr;
+  // };
+  // createDataArr();
+  data.sentences.map((sentence: any) => dataArr.push(sentence.sentence));
+
+  console.log(dataArr);
+
+  const handleInputChange = (e: { target: { value: string } }) => {
+    const inputValue = e.target.value;
+    dataArr.push(inputValue);
+    setStory(inputValue);
+    // return dataArr;
+  };
+
   return (
     <Box>
-      {data.sentences.map((sentence: Sentence, index: number) => (
-        <li key={index}>{sentence.sentence}</li>
+      {data.sentences.map((sentence: Sentence) => (
+        <li key={sentence.id}>{sentence.sentence}</li>
       ))}
+      {/* {dataArr.map((sentence: string, index: number) => (
+        <li key={index}>{sentence}</li>
+      ))} */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          addSentence({ variables: { sentence: value } });
-          setValue("");
-          window.location.reload();
+          addSentence({ variables: { sentence: story } });
+          setStory("");
+          // window.location.reload();
         }}
       >
         <FormControl>
@@ -50,7 +68,7 @@ const CreateStory: any = ({ firstWord, secondWord }) => {
             <FormLabel width="280px">Create a new story</FormLabel>
             <Textarea
               width="300px"
-              value={value}
+              value={story}
               onChange={handleInputChange}
               size="lg"
             ></Textarea>

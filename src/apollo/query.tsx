@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 export const GET_WORDS = gql`
   query getWords {
     words {
+      id
       word
       type
     }
@@ -12,6 +13,7 @@ export const GET_WORDS = gql`
 export const GET_SENTENCES = gql`
   query getSentences {
     sentences {
+      id
       sentence
     }
   }
